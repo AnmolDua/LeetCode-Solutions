@@ -1,0 +1,25 @@
+Calculate the sum of two integers a and b, but you are not allowed to use the operator + and -.
+
+Example 1:
+
+Input: a = 1, b = 2
+Output: 3
+Example 2:
+
+Input: a = -2, b = 3
+Output: 1
+
+==================================
+Sol:
+
+class Solution {
+public:
+    int getSum(int a, int b) {
+        return b==0 ? a :getSum(a^b,(a&b&0x7FFFFFFF)<<1);
+    }
+};
+//0x7fffffff just remove the signal getting the complement of the number.
+//In the binary representation, the first bit is the signal. If you set it to zero you will get positive complementary if the number is negative. Or the same number if positive.
+
+//0x7fffffff =pow(2,31) -1; //max signed int
+//greater than this i.e pow(2,31) is negative so to keep it positive..
