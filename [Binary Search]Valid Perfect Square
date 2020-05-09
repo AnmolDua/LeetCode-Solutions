@@ -1,0 +1,43 @@
+Given a positive integer num, write a function which returns True if num is a perfect square else False.
+
+Note: Do not use any built-in library function such as sqrt.
+
+Example 1:
+
+Input: 16
+Output: true
+Example 2:
+
+Input: 14
+Output: false
+
+===========================================
+Sol:
+
+class Solution {
+public:
+    bool isPerfectSquare(int num) {
+        //Concept [0-0],[1,9-1],[2,8-4],[3,7-9],[4-6],[5-5],[6-6]
+        //last digit not come in perfect squares =[2,3,7,8]
+        int last_digit=num%10;
+        if(last_digit==2 || last_digit==3 || last_digit==7 || last_digit==8 ){
+            return false;
+        }
+        int left=1;
+        int right=num;
+        while(left<=right){
+            long long int mid=left+(right-left)/2;
+            long long int sq=mid*mid;
+            if(sq==num){
+                return true;
+            }
+            else if(sq<num){
+                left=mid+1;
+            }
+            else{
+                right=mid-1;
+            }
+        }
+        return false;
+    }
+};
