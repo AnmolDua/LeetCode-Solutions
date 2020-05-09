@@ -1,0 +1,56 @@
+Given two integers representing the numerator and denominator of a fraction, return the fraction in string format.
+
+If the fractional part is repeating, enclose the repeating part in parentheses.
+
+Example 1:
+
+Input: numerator = 1, denominator = 2
+Output: "0.5"
+Example 2:
+
+Input: numerator = 2, denominator = 1
+Output: "2"
+Example 3:
+
+Input: numerator = 2, denominator = 3
+Output: "0.(6)"
+===================================
+Sol:
+
+class Solution {
+public:
+    string fractionToDecimal(int num, int denom) {
+        if(num==0){
+            return "0";
+        }
+        string ans="";
+        if((num<0 && denom>0) || (denom<0 && num>0)){
+          ans+="-";
+        }
+        long long int numerator=abs(num);
+        long long int denominator=abs(denom);
+        long long int rem=numerator%denominator;
+        if(rem==0){
+            ans+=to_string(numerator/denominator);
+            return ans;
+        }
+        int q=numerator/denominator;
+        ans+=to_string(q);
+        ans+='.';
+        map<int,int> m;
+        while(rem>0){
+             rem*=10;
+            if(m.find(rem)!=m.end()){
+                ans.insert(m[rem],"(");
+                ans+=")";
+                return ans;
+            }
+                m[rem]=ans.size();
+                q=rem/denominator;
+                rem%=denominator;
+                ans+=to_string(q);
+                
+        }
+        return ans;
+    }
+};
