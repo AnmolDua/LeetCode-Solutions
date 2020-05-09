@@ -1,0 +1,47 @@
+Given two non-negative integers num1 and num2 represented as strings, return the product of num1 and num2, also represented as a string.
+
+Example 1:
+
+Input: num1 = "2", num2 = "3"
+Output: "6"
+Example 2:
+
+Input: num1 = "123", num2 = "456"
+Output: "56088"
+Note:
+
+The length of both num1 and num2 is < 110.
+Both num1 and num2 contain only digits 0-9.
+Both num1 and num2 do not contain any leading zero, except the number 0 itself.
+You must not use any built-in BigInteger library or convert the inputs to integer directly.
+=====================================
+Sol:
+
+class Solution {
+public:
+    string multiply(string num1, string num2) {
+        int n1=num1.size();
+        int n2=num2.size();
+        vector<char> s(n1+n2,'0');
+        for(int j=n2-1;j>=0;j--){
+            for(int i=n1-1;i>=0;i--){
+                int prod = (num2[j]-'0') * (num1[i]-'0');
+                int temp = (s[i+j+1]-'0') + prod;
+                s[i+j+1]=char(temp%10+'0');
+                s[i+j]=char((s[i+j]-'0')+((temp/10)+'0'));
+          
+                
+            }
+        }
+        string sb;
+        bool seen =false;
+        for(char c:s){
+            if(c=='0' && !seen){
+                continue;
+            }
+            sb+=c;
+            seen =true;
+        }
+        return sb.size()==0?"0":sb;
+    }
+};
