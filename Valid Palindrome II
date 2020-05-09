@@ -1,0 +1,43 @@
+Valid Palindrome II
+
+Given a non-empty string s, you may delete at most one character. Judge whether you can make it a palindrome.
+
+Example 1:
+Input: "aba"
+Output: True
+Example 2:
+Input: "abca"
+Output: True
+Explanation: You could delete the character 'c'.
+Note:
+The string will only contain lowercase characters a-z. The maximum length of the string is 50000.
+
+==================================================================
+
+class Solution {
+public:
+    bool sub_palcheck(string s,int i,int j){
+       int a_pointer=i;
+       int b_pointer=j;
+       while(a_pointer<=b_pointer){
+           if(s[a_pointer]!=s[b_pointer]){
+               return false;
+           }
+           a_pointer++;
+           b_pointer--;
+       }
+        return true;
+    }
+    bool validPalindrome(string s) {
+       int a_pointer=0;
+       int b_pointer=s.length()-1;
+       while(a_pointer<=b_pointer){
+           if(s[a_pointer]!=s[b_pointer]){
+               return sub_palcheck(s,a_pointer+1,b_pointer) || sub_palcheck(s,a_pointer,b_pointer-1);
+           }
+           a_pointer++;
+           b_pointer--;
+       }
+        return true;
+    }
+};
