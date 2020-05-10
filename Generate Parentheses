@@ -1,0 +1,36 @@
+Given n pairs of parentheses, write a function to generate all combinations of well-formed parentheses.
+
+For example, given n = 3, a solution set is:
+
+[
+  "((()))",
+  "(()())",
+  "(())()",
+  "()(())",
+  "()()()"
+]
+
+===========================================
+Sol://Pass the vector by reference ,otherwise it will return an empty array.
+
+class Solution {
+public:
+     void backtracking(vector<string> &ans,string curr,int open ,int close,int max){
+        // cout<<curr<<endl;
+         if(curr.size()==2*max){
+            ans.push_back(curr);
+            return;
+        }
+        if(open<max){
+            backtracking(ans,curr+"(",open+1,close,max);
+        }
+        if(close<open){
+            backtracking(ans,curr+")",open,close+1,max);
+        }
+    }
+    vector<string> generateParenthesis(int n) {
+        vector<string> ans;
+        backtracking(ans,"",0,0,n);
+        return ans;
+    }
+};
