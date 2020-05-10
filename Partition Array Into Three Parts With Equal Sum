@@ -30,6 +30,7 @@ Sol:
 class Solution {
 public:
     //testcase: [10,-10,10,-10,10,-10,10,-10]
+    // if the target sum is zero, we can reach it more than 3 times 
     bool canThreePartsEqualSum(vector<int>& A) {
         int sum=0;
         for(int i=0;i<A.size();i++){
