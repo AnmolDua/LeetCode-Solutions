@@ -1,0 +1,64 @@
+Given a string s and a non-empty string p, find all the start indices of p's anagrams in s.
+
+Strings consists of lowercase English letters only and the length of both strings s and p will not be larger than 20,100.
+
+The order of output does not matter.
+
+Example 1:
+
+Input:
+s: "cbaebabacd" p: "abc"
+
+Output:
+[0, 6]
+
+Explanation:
+The substring with start index = 0 is "cba", which is an anagram of "abc".
+The substring with start index = 6 is "bac", which is an anagram of "abc".
+Example 2:
+
+Input:
+s: "abab" p: "ab"
+
+Output:
+[0, 1, 2]
+
+Explanation:
+The substring with start index = 0 is "ab", which is an anagram of "ab".
+The substring with start index = 1 is "ba", which is an anagram of "ab".
+The substring with start index = 2 is "ab", which is an anagram of "ab".
+
+======================================================================
+Sol:
+
+class Solution {
+public:
+    vector<int> findAnagrams(string s, string p) {
+     int p1=p.size();
+     int h[26]={0};
+     int sub[26]={0};
+     vector<int> v;
+     if(p1>s.size()){return v;}
+     for(int i=0;i<p1;i++){
+         h[p[i]-'a']++;
+     }
+     for(int i=0;i<p1;i++){
+         sub[s[i]-'a']++;
+     }
+     for(int i=0;i<s.length()-p1+1;i++){
+        int start=i;
+        int end=i+p1;
+        int flag=1;
+        if(i>0){sub[s[end-1]-'a']++;}
+        for(int k=start;k<end;k++){
+            if(sub[s[k]-'a']!=h[s[k]-'a']){
+                flag=0;break;
+            }
+        }
+        if(flag){v.push_back(i);}
+        sub[s[i]-'a']--;
+         
+     }
+        return v;
+    }
+};
